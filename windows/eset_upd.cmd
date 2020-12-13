@@ -16,7 +16,7 @@ set tmpfile=%tmp%\update.log
 set source=%ID%:%PW%@%url%
 
 call :version %mVer% 
-ping 127.0.0.1 -n 10 >nul >nul
+timeout 10
 exit
 
 :version
