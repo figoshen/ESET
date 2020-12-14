@@ -14,7 +14,8 @@ function  eVer(){
 		[ ! -d ./tmp ] && mkdir -p ./tmp
 		[ ! -d $uDir ] && mkdir -p $uDir
 		wget -N --http-user=$ID --http-password=$PW -O $udVer $url 
-		sed -n "/\[[^H]/,$ p" $udVer|sed "/CONT/,/size/d"|sed "/PICO/,/inte/d" > $tFile
+		#sed -n "/\[[^H]/,$ p" $udVer|sed "/CONT/,/size/d"|sed "/PICO/,/inte/d" > $tFile
+                sed -n "/\[[^CO|^HO|^SE|^LI|^PI]/,/size/p" $udVer > $tFile
 		sed -n "/_l[0-9]/s@file=@http://$Site@ p" $udVer >$dFile
 		sed "s@file=\/.*\/@file=@g" $tFile > $uDir/update.ver
 		mv $udVer $uFile
