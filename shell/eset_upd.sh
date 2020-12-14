@@ -19,7 +19,7 @@ function  eVer(){
 		sed -n "/_l[0-9]/s@file=@http://$Site@ p" $udVer >$dFile
 		sed "s@file=\/.*\/@file=@g" $tFile > $uDir/update.ver
 		mv $udVer $uFile
-		[ -d $uDir ] && mv -f $lFile
+		[ -d $uDir ] && rm -f $lFile
 		wget -N -b -o $lFile --http-user=$ID --http-password=$PW -P $uDir -i $dFile
 	fi
 }
