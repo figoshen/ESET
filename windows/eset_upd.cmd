@@ -14,7 +14,7 @@ set here=%~dp0
 set wget=%~dps0wget.exe
 set tmpfile=%tmp%\update.log
 set source=%ID%:%PW%@%url%
-set oPath=c:\www\eset_up
+set oPath=c:\www\eset_upd
 call :version %mVer% 
 timeout 10
 exit
