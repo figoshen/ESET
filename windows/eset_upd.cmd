@@ -35,8 +35,6 @@ sed -n "/\[[^CO|^HO|^SE|^LI|^PI]/,/size/p"  %tmp%/update.ver> %tmp%\%ver%.ver
 sed -n "/_l[0-9]/s@file=@http://%url%@ p" %tmp%\%ver%.ver >%tmp%\%ver%.lst
 if exist %tmp%\%ver%.log del /f %tmp%\%ver%.log
 %wget% -N %bg% -e --user=%ID% --password=%PW% -P %www%\%ver:dll=\dll% -i %tmp%\%ver%.lst
-echo [STATS_SERVER]  >%www%\%ver:dll=%\update.ver
-echo server=http;DESKTOP-NQRRPDA;2221;/updater_plugin_url/storage_file/ >>%www%\%ver:dll=%\update.ver
 sed "s@file=\/.*\/@file=@g"  %tmp%\%ver%.ver > %www%\%ver:dll=\dll%\update.ver
 echo [STATS_SERVER]  >>%www%\%ver:dll=\dll%\update.ver
 echo server=http;DESKTOP-NQRRPDA;2221;/updater_plugin_url/storage_file/ >>%www%\%ver:dll=\dll%\update.ver
