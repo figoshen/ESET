@@ -14,31 +14,40 @@ set here=%~dp0
 set wget=%~dps0wget.exe
 set tmpfile=%tmp%\update.log
 set source=%ID%:%PW%@%url%
-set oPath=c:\www\eset_upd
+set www=eset_upd
+set background=1
 call :version %mVer% 
 timeout 10
 exit
-REM ------------------------------
-:version
+
+Rem ------------------------------
+:version   
 set ver=%1
+if "%background%"=="1" set bg=-b -o %tmp%\%ver%.log
 if exist %tmpfile% del /Q %tmpfile%
-if not exist %oPath%\%ver:dll=\dll%\nul md %oPath%\%ver:dll=\dll%
+if not exist %www%\%ver:dll=\dll%\nul md %www%\%ver:dll=\dll%
 %wget% -N  -O%tmp%/update.ver http://%source%/eset_upd/%ver:dll=/dll%/update.ver
-if exist %tmp%\%ver%.ver  @fc /A /L /LB1 %tmp%\update.ver %tmp%\%ver%.ver && goto next
-sed -n "/PICO/,/inte/d;/\[[^HO|^LI|^SE|^CO]/,/size/p"  %tmp%/update.ver> %tmp%\%ver%.ver
+
+REM --------------  Check for updates
+ --------------------
+:if exist %tmp%\%ver%.ver  @fc /A /L /LB1 %tmp%\update.ver %tmp%\%ver%.ver && goto next
+
+Rem sed -n "/PICO/,/inte/d;/\[[^H\|^CO\|^SE\|^LI]/,/size/p"  %tmp%/update.ver> %tmp%\%ver%.ver
+sed -n "/\[[^CO|^HO|^SE|^LI|^PI]/,/size/p"  %tmp%/update.ver> %tmp%\%ver%.ver
 sed -n "/_l[0-9]/s@file=@http://%url%@ p" %tmp%\%ver%.ver >%tmp%\%ver%.lst
 if exist %tmp%\%ver%.log del /f %tmp%\%ver%.log
-%wget% -N -b -o %tmp%\%ver%.log -e --user=%ID% --password=%PW% -P %oPath%\%ver:dll=\dll% -i %tmp%\%ver%.lst
-sed "s@file=\/.*\/@file=@g"  %tmp%\%ver%.ver > %oPath%\%ver:dll=\dll%\update.ver
-echo [STATS_SERVER] >> %oPath%\%ver:dll=\dll%\update.ver
-echo server=http;%USERDOMAIN%;2221;/updater_plugin_url/storage_file/ >> %oPath%\%ver:dll=\dll%\update.ver
+%wget% -N %bg% -e --user=%ID% --password=%PW% -P %www%\%ver:dll=\dll% -i %tmp%\%ver%.lst
+echo [STATS_SERVER]  >%www%\%ver:dll=%\update.ver
+echo server=http;DESKTOP-NQRRPDA;2221;/updater_plugin_url/storage_file/ >>%www%\%ver:dll=%\update.ver
+sed "s@file=\/.*\/@file=@g"  %tmp%\%ver%.ver > %www%\%ver:dll=\dll%\update.ver
+echo [STATS_SERVER]  >>%www%\%ver:dll=\dll%\update.ver
+echo server=http;DESKTOP-NQRRPDA;2221;/updater_plugin_url/storage_file/ >>%www%\%ver:dll=\dll%\update.ver
 goto :next
-exit
+
 REM ------------------------------
 :next
 cd %here%
 move /y %tmp%\update.ver %tmp%\%ver%.ver
 shift 
-@if %1.==. goto :eof
+if %1.==. goto :eof
 goto :version
-exit
