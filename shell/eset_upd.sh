@@ -18,8 +18,7 @@ function  eVer(){
                 sed -n "/\[[^CO|^HO|^SE|^LI|^PI]/,/size/p" $udVer > $tFile
 		sed -n "/_l[0-9]/s@file=@http://$Site@ p" $udVer >$dFile
 		sed "s@file=\/.*\/@file=@g" $tFile > $uDir/update.ver
-		echo "[STATS_SERVER]"  >> $uDir/update.ver
-		echo "server=http;$HOSTNAME;$Port;/updater_plugin_url/storage_file/" >> $uDir/update.ver
+		echo -e "[STATS_SERVER]\nserver=http;$HOSTNAME;$Port;/updater_plugin_url/storage_file/" >> $uDir/update.ver
 		mv $udVer $uFile
 		[ -d $uDir ] && rm -f $lFile
 		wget -N -b -o $lFile --http-user=$ID --http-password=$PW -P $uDir -i $dFile
