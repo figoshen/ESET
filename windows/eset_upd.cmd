@@ -37,7 +37,7 @@ if exist %tmp%\%ver%.log del /f /q %tmp%\%ver%.log
 %wget% -N %bg% -e --user=%ID% --password=%PW% -P %OutPut%\%ver:dll=\dll% -i %tmp%\%ver%.lst
 sed "s@file=\/.*\/@file=@g"  %tmp%\%ver%.ver > %OutPut%\%ver:dll=\dll%\update.ver
 echo [STATS_SERVER]  >>%OutPut%\%ver:dll=\dll%\update.ver
-echo server=http;%COMPUTERNAME%;%port%;/updater_plugin_url/storage_file/ >>%OutPut%\%ver:dll=\dll%\update.ver
+echo server=http;%COMPUTERNAME%;%WebPort%;/updater_plugin_url/storage_file/ >>%OutPut%\%ver:dll=\dll%\update.ver
 goto :next
 
 REM ------------------------------
