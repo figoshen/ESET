@@ -28,11 +28,9 @@ if exist %tmpfile% del /Q %tmpfile%
 if not exist %www%\%ver:dll=\dll%\nul md %www%\%ver:dll=\dll%
 %wget% -N  -O%tmp%/update.ver http://%source%/eset_upd/%ver:dll=/dll%/update.ver
 
-REM --------------  Check for updates
- --------------------
+REM --------------  Check for updates --------------------
 :if exist %tmp%\%ver%.ver  @fc /A /L /LB1 %tmp%\update.ver %tmp%\%ver%.ver && goto next
 
-Rem sed -n "/PICO/,/inte/d;/\[[^H\|^CO\|^SE\|^LI]/,/size/p"  %tmp%/update.ver> %tmp%\%ver%.ver
 sed -n "/\[[^CO|^HO|^SE|^LI|^PI]/,/size/p"  %tmp%/update.ver> %tmp%\%ver%.ver
 sed -n "/_l[0-9]/s@file=@http://%url%@ p" %tmp%\%ver%.ver >%tmp%\%ver%.lst
 if exist %tmp%\%ver%.log del /f %tmp%\%ver%.log
