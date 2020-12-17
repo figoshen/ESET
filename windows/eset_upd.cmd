@@ -4,8 +4,8 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 REM    -------- Multiple Version  --------- 
 set mVer=ep8ll v14dll
 REM    -------- ID & PW  ---------  
-set ID=EAV-0267750251
-set PW=3vr2krbn3s
+set ID=TRIAL-0270694529
+set PW=4psfpvxuce
 set url=update.eset.com
 REM ------- Proxy ---------------
 :set http_proxy=http://192.168.1.1:808
