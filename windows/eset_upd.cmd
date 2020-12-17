@@ -12,7 +12,7 @@ REM ------- Proxy ---------------
 REM ------ format:YYYYMMDD depand on your pc setup
 set toDay=%date:~0,4%%date:~5,2%%date:~8,2%
 REM ------------------------------
-et here=%~dp0
+set here=%~dp0
 set wget=%~dps0wget.exe
 set tmpfile=%tmp%\update.log
 set source=%ID%:%PW%@%url%
