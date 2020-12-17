@@ -36,7 +36,7 @@ if %check-upd%.==1. if exist %tmp%\%ver%.ver  @fc /A /L /LB1 %tmp%\update.ver %t
 sed -n "/\[[^CO|^HO|^SE|^LI|^PI]/,/size/p"  %tmp%/update.ver> %tmp%\%ver%.ver
 REM ------------- download today's first
 sed -n  "/%today%)/,/file/p"  %tmp%\%ver%.ver   > %tmp%\tmp.txt
-sed -n  "/[^$tDay])/,/file/p"  %tmp%\%ver%.ver >> %tmp%\tmp.txt
+sed -n  "/[^%today%])/,/file/p"  %tmp%\%ver%.ver >> %tmp%\tmp.txt
 sed -n "/_l[0-9]/s@file=@http://%url%@ p" %tmp%\tmp.txt >%tmp%\%ver%.lst
 if exist %tmp%\%ver%.log del /f /q %tmp%\%ver%.log
 %wget% -N %bg% -e --user=%ID% --password=%PW% -P %OutPut%\%ver:dll=\dll% -i %tmp%\%ver%.lst
