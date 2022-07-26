@@ -16,7 +16,7 @@ function  eVer(){
 		[ ! -d $uDir ] && mkdir -p $uDir
 		wget -N --http-user=$ID --http-password=$PW -O $udVer $url
 		#------ filter down CONTINUS HOSTS SERVERS LINKS PICO
-		sed -n "/\[[^CO|^HO|^SE|^LI|^PI]/,/size/p" $udVer > $tFile
+		sed -n "/\[[^CONT|^HOST|^SERV|^LINK|^PICO]/,/size/p" $udVer > $tFile
 		#------------- download today's first
 		sed -n  "/$toDay)/,/file/p"    $tFile > $tList
 		sed -n  "/[^$toDay)]/,/file/p" $tFile >>$tList
@@ -42,6 +42,6 @@ eVer v4
 #===================
 filter="s@dll@/dll@"
 #===================
-eVer ep8dll
-eVer v14dll
+eVer ep9dll
+eVer v15dll
 exit
