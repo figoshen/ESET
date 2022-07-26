@@ -35,8 +35,8 @@ REM ---------  check for newest update
 if %check-upd%.==1. if exist %tmp%\%ver%.ver  @fc /A /L /LB1 %tmp%\update.ver %tmp%\%ver%.ver && goto next
 sed -n "/\[[^HOSTS|^SERVERS|^LINKS|^PICO|^CONT]/,/size/p" %tmp%/update.ver> %tmp%\%ver%.ver
 REM ------------- download today's first
-sed -n  "/%today%)/,/file/p"  %tmp%\%ver%.ver   > %tmp%\%ver%.lst
-sed -n "/_l[0-9]/s@file=@http://%url%@ p" %tmp%\tmp.txt >>%tmp%\%ver%.lst
+sed -n  "/(%today%)/,/file/p"  %tmp%\%ver%.ver   >%tmp%\%ver%.lst
+sed -n "/_l[0-9]/s@file=@http://%url%@ p" %tmp%\%ver%.ver >>%tmp%\%ver%.lst
 if exist %tmp%\%ver%.log del /f /q %tmp%\%ver%.log
 %wget% -N %bg% -e --user=%ID% --password=%PW% -P %OutPut%\%ver:dll=\dll% -i %tmp%\%ver%.lst
 sed "s@file=\/.*\/@file=@g"  %tmp%\%ver%.ver > %OutPut%\%ver:dll=\dll%\update.ver
