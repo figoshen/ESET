@@ -2,7 +2,7 @@
 SETLOCAL ENABLEEXTENSIONS
 SETLOCAL ENABLEDELAYEDEXPANSION
 REM    -------- Multiple Version  --------- 
-set mVer=ep8ll v14dll
+set mVer=v4 ep9dll v15dll
 REM    -------- ID & PW  ---------  
 set ID=TRIAL-0270694529
 set PW=4psfpvxuce
@@ -33,7 +33,7 @@ if not exist %OutPut%\%ver:dll=\dll%\nul md %OutPut%\%ver:dll=\dll%
 %wget% -N  -O%tmp%/update.ver http://%source%/eset_upd/%ver:dll=/dll%/update.ver
 REM ---------  check for newest update
 if %check-upd%.==1. if exist %tmp%\%ver%.ver  @fc /A /L /LB1 %tmp%\update.ver %tmp%\%ver%.ver && goto next
-sed -n "/\[[^CO|^HO|^SE|^LI|^PI]/,/size/p"  %tmp%/update.ver> %tmp%\%ver%.ver
+sed -n "/\[[^HOSTS|^SERVERS|^LINKS|^PICO|^CONT]/,/size/p" %tmp%/update.ver> %tmp%\%ver%.ver
 REM ------------- download today's first
 sed -n  "/%today%)/,/file/p"  %tmp%\%ver%.ver   > %tmp%\tmp.txt
 sed -n  "/[^%today%])/,/file/p"  %tmp%\%ver%.ver >> %tmp%\tmp.txt
