@@ -18,9 +18,10 @@ function  eVer(){
 		#------ filter down CONTINUS HOSTS SERVERS LINKS PICO
 		sed -n "/\[[^CONT|^HOST|^SERV|^LINK|^PICO]/,/size/p" $udVer > $tFile
 		#------------- download today's first
-		sed -n  "/$toDay)/,/file/p"    $tFile > $dFile
+		sed -n  "/$toDay)/,/file/p"    $tFile >$tList
+		cat  $tFile >>$tList
 		#sed -n  "/[^$toDay)]/,/file/p" $tFile >>$tList
-		sed -n "/_l[0-9]/s@file=@http://$Site@ p" $tFile >> $dFile
+		sed -n "/_l[0-9]/s@file=@http://$Site@ p" $tList > $dFile
 		#------------- create mirror update.ver
 		sed "s@file=\/.*\/@file=@g" $tFile > $uDir/update.ver
         	echo -e "[STATS_SERVER]\nserver=http;$HOSTNAME;$Port;/updater_plugin_url/storage_file/" >> $uDir/update.ver
