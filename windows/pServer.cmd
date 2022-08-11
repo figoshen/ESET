@@ -7,8 +7,7 @@ set /a MultiProcess=10
 set wwwroot=c:\wwwroot
 set here=%~dp0
 set wget=wget.exe -N
-set aria=aria2c.exe -c --allow-overwrite=true
-:set para=-N --no-dns-cache --auth-no-challenge --no-if-modified-since --user-agent="Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko"
+set aria=aria2c.exe --allow-overwrite=true
 set /a no=0&set /a MultiProcess=%MultiProcess%-1
 set list=version_versionid_build_type_level_category_base_date_platform_group_buildregname_file_size
 REM    -------- Update from offical site --------- 
