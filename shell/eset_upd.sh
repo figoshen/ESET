@@ -16,12 +16,13 @@ function  eVer(){
 		[ ! -d $uDir ] && mkdir -p $uDir
 		wget -N --http-user=$ID --http-password=$PW -O $udVer $url
 		#------ filter down CONTINUS HOSTS SERVERS LINKS PICO
-		sed -n "/\[[^CONT|^HOST|^SERV|^LINK|^PICO]/,/size/p" $udVer > $tFile
+		#sed -n "/\[[^CONT|^HOST|^SERV|^LINK|^PICO]/,/size/p" $udVer > $tFile
+		sed -n "/\[[^SERVERS|^LINKS|^HOSTS]/,$ p" $udVer|sed -e "/CONT/,/size/d" -e "/MOBI/,/size/d" -e "/PICO/,/inte/d">$tFile
 		#------------- download today's first
 		sed -n  "/$toDay)/,/file/p"    $tFile >$tList
 		cat  $tFile >>$tList
-		#sed -n  "/[^$toDay)]/,/file/p" $tFile >>$tList
-		sed -n "/_l[0-9]/s@file=@http://$Site@ p" $tList > $dFile
+		#sed -n "/_l[0-9]/s@file=@http://$Site@ p" $tList > $dFile
+		sed -n "/file/s@file=@http://$Site@ p" $tList > $dFile
 		#------------- create mirror update.ver
 		sed "s@file=\/.*\/@file=@g" $tFile > $uDir/update.ver
         	echo -e "[STATS_SERVER]\nserver=http;$HOSTNAME;$Port;/updater_plugin_url/storage_file/" >> $uDir/update.ver
