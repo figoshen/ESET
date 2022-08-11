@@ -33,11 +33,12 @@ if not exist %OutPut%\%ver:dll=\dll%\nul md %OutPut%\%ver:dll=\dll%
 %wget% -N  -O%tmp%/update.ver http://%source%/eset_upd/%ver:dll=/dll%/update.ver
 REM ---------  check for newest update
 if %check-upd%.==1. if exist %tmp%\%ver%.ver  @fc /A /L /LB1 %tmp%\update.ver %tmp%\%ver%.ver && goto next
-sed -n "/\[[^SERVERS|^LINKS|^HOSTS]/,$ p" %tmp%/update.ver | sed -e "/CONT/,/size/d" -e "/PICO/,/inte/d"> %tmp%\%ver%.ver
+sed -n "/\[[^SERVERS|^LINKS|^HOSTS]/,$ p" %tmp%/update.ver |sed -e "/CONT/,/size/d" -e "/MOBI/,/size/d" -e "/PICO/,/inte/d"> %tmp%\%ver%.ver
 REM ------------- download today's first
 sed -n "/(%today%)/,/file/p" %tmp%\%ver%.ver > %tmp%\tmp.txt
 type %tmp%\%ver%.ver >> %tmp%\tmp.txt
-sed -n "/_l[0-9]/s@file=@http://%url%@p" %tmp%\tmp.txt >%tmp%\%ver%.lst
+#sed -n "/_l[0-9]/s@file=@http://%url%@p" %tmp%\tmp.txt >%tmp%\%ver%.lst
+sed -n "/file/s@file=@http://%url%@p" %tmp%\tmp.txt >%tmp%\%ver%.lst
 if exist %tmp%\%ver%.log del /f /q %tmp%\%ver%.log
 %wget% -N %bg% -e --user=%ID% --password=%PW% -P %OutPut%\%ver:dll=\dll% -i %tmp%\%ver%.lst
 sed "s@file=\/.*\/@file=@g"  %tmp%\%ver%.ver > %OutPut%\%ver:dll=\dll%\update.ver
